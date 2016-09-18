@@ -24,7 +24,9 @@ class PizzaListViewController: UIViewController {
     super.viewDidAppear(animated)
 
     // Doing this in didAppear just to ensure audience notices the spinner
+    UIApplication.shared.isNetworkActivityIndicatorVisible = true
     pizzaService.loadPizzas { [weak self] list, error in
+      UIApplication.shared.isNetworkActivityIndicatorVisible = false
       guard let `self` = self else {
         return
       }
