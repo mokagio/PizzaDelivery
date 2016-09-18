@@ -18,6 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OkB-Cz-PIC"/>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="LmO-ns-Z4h">
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
@@ -26,12 +27,15 @@
                         <constraints>
                             <constraint firstItem="Nuh-1h-IWp" firstAttribute="top" secondItem="LmO-ns-Z4h" secondAttribute="bottom" id="AD8-xh-AlN"/>
                             <constraint firstItem="LmO-ns-Z4h" firstAttribute="top" secondItem="WH0-Yj-6UB" secondAttribute="bottom" id="BOq-qp-LB3"/>
+                            <constraint firstItem="OkB-Cz-PIC" firstAttribute="centerX" secondItem="bdB-Av-osB" secondAttribute="centerX" id="Qmz-LC-dGd"/>
                             <constraint firstAttribute="trailing" secondItem="LmO-ns-Z4h" secondAttribute="trailing" id="YLy-Au-rDX"/>
                             <constraint firstItem="LmO-ns-Z4h" firstAttribute="leading" secondItem="bdB-Av-osB" secondAttribute="leading" id="kzK-U2-R5r"/>
+                            <constraint firstItem="OkB-Cz-PIC" firstAttribute="centerY" secondItem="bdB-Av-osB" secondAttribute="centerY" id="rpS-Pm-o0a"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="TQO-to-AmZ"/>
                     <connections>
+                        <outlet property="spinner" destination="OkB-Cz-PIC" id="aGb-fK-9rB"/>
                         <outlet property="tableView" destination="LmO-ns-Z4h" id="vVj-uW-Ngt"/>
                     </connections>
                 </viewController>

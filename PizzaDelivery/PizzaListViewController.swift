@@ -3,6 +3,7 @@ import UIKit
 class PizzaListViewController: UIViewController {
 
   @IBOutlet var tableView: UITableView!
+  @IBOutlet var spinner: UIActivityIndicatorView!
 
   let pizzaService = PizzaService()
 
@@ -15,9 +16,12 @@ class PizzaListViewController: UIViewController {
 
     title = "🍕"
 
+    spinner.hidesWhenStopped = true
     tableView.dataSource = self
 
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: pizzaCellIdentifier)
+
+    tableView.isHidden = true
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -25,11 +29,17 @@ class PizzaListViewController: UIViewController {
 
     // Doing this in didAppear just to ensure audience notices the spinner
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    spinner.startAnimating()
     pizzaService.loadPizzas { [weak self] list, error in
       UIApplication.shared.isNetworkActivityIndicatorVisible = false
+
       guard let `self` = self else {
         return
       }
+
+      self.spinner.stopAnimating()
+      self.tableView.isHidden = false
+
       guard let list = list else {
         fatalError("Handling error not implemeted yet.")
       }
