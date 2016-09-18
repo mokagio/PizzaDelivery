@@ -1,0 +1,6 @@
+#!/bin/bash
+
+set -e
+
+bundle install
+bundle exec ruby ./pizza_server.rb
