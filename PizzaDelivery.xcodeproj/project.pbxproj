@@ -10,6 +10,7 @@
 		3F1CE6961D8D559600177F9D /* PizzaListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CE6951D8D559600177F9D /* PizzaListViewController.swift */; };
 		3F1CE6981D8E0BD500177F9D /* Fixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CE6971D8E0BD400177F9D /* Fixtures.swift */; };
 		3F1CE69A1D8E0C3400177F9D /* Pizza.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CE6991D8E0C3400177F9D /* Pizza.swift */; };
+		3F1CE69C1D8E0EE200177F9D /* PizzaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CE69B1D8E0EE200177F9D /* PizzaService.swift */; };
 		3FB1DFA11D8CE267001883DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB1DFA01D8CE267001883DC /* AppDelegate.swift */; };
 		3FB1DFA61D8CE267001883DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FB1DFA41D8CE267001883DC /* Main.storyboard */; };
 		3FB1DFA81D8CE267001883DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FB1DFA71D8CE267001883DC /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 		3F1CE6951D8D559600177F9D /* PizzaListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PizzaListViewController.swift; sourceTree = "<group>"; };
 		3F1CE6971D8E0BD400177F9D /* Fixtures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fixtures.swift; sourceTree = "<group>"; };
 		3F1CE6991D8E0C3400177F9D /* Pizza.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pizza.swift; sourceTree = "<group>"; };
+		3F1CE69B1D8E0EE200177F9D /* PizzaService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PizzaService.swift; sourceTree = "<group>"; };
 		3FB1DF9D1D8CE267001883DC /* PizzaDelivery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PizzaDelivery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB1DFA01D8CE267001883DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FB1DFA51D8CE267001883DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -91,6 +93,7 @@
 				3F1CE6951D8D559600177F9D /* PizzaListViewController.swift */,
 				3F1CE6991D8E0C3400177F9D /* Pizza.swift */,
 				3F1CE6971D8E0BD400177F9D /* Fixtures.swift */,
+				3F1CE69B1D8E0EE200177F9D /* PizzaService.swift */,
 			);
 			path = PizzaDelivery;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F1CE69A1D8E0C3400177F9D /* Pizza.swift in Sources */,
+				3F1CE69C1D8E0EE200177F9D /* PizzaService.swift in Sources */,
 				3FB1DFA11D8CE267001883DC /* AppDelegate.swift in Sources */,
 				3F1CE6961D8D559600177F9D /* PizzaListViewController.swift in Sources */,
 				3F1CE6981D8E0BD500177F9D /* Fixtures.swift in Sources */,
