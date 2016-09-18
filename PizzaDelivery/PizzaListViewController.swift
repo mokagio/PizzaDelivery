@@ -38,14 +38,20 @@ class PizzaListViewController: UIViewController {
       }
 
       self.spinner.stopAnimating()
-      self.tableView.isHidden = false
 
-      guard let list = list else {
-        fatalError("Handling error not implemeted yet.")
+      if let error = error {
+
+        self.presentAlert(forError: error)
+
+      } else if let list = list {
+
+        self.tableView.isHidden = false
+        self.data = list
+        self.tableView.reloadData()
+
+      } else {
+        fatalError("Pizza service returned neither pizza list nor error")
       }
-
-      self.data = list
-      self.tableView.reloadData()
     }
   }
 }
@@ -75,5 +81,19 @@ extension PizzaListViewController: UITableViewDataSource {
 
   private func configure(_ cell: UITableViewCell, with pizza: Pizza) {
     cell.textLabel?.text = "\(pizza.name) ($\(pizza.price))"
+  }
+}
+
+extension UIViewController {
+
+  func presentAlert(forError error: NSError) {
+    let alert = UIAlertController(
+      title: "Oooops",
+      message: error.localizedDescription,
+      preferredStyle: .alert
+    )
+    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: .none))
+
+    present(alert, animated: true, completion: .none)
   }
 }
