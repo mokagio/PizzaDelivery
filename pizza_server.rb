@@ -2,6 +2,7 @@ require 'sinatra'
 require 'json'
 
 get '/pizzas' do
+  sleep 0.4
   return {
     pizzas: [
 			{ price: 8, name: 'Margherita' },
