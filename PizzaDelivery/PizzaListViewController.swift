@@ -8,8 +8,10 @@ class PizzaListViewController: UIViewController {
   let pizzaService = PizzaService()
 
   let pizzaCellIdentifier = "pizza"
+  let adCellIdentifier = "ad"
 
   var data: [Pizza]?
+  var ads = Ad.dummyAds()
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -20,6 +22,9 @@ class PizzaListViewController: UIViewController {
     tableView.dataSource = self
 
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: pizzaCellIdentifier)
+    tableView.register(UITableViewCell.self, forCellReuseIdentifier: adCellIdentifier)
+
+    tableView.tableFooterView = UIView()
 
     tableView.isHidden = true
   }
@@ -63,20 +68,36 @@ extension PizzaListViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return data?.count ?? 0
+    guard let data = data else {
+      return 0
+    }
+
+    return data.count + ads.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: pizzaCellIdentifier, for: indexPath)
     guard let data = data else {
-      return cell
+      return UITableViewCell()
     }
 
-    let pizza = data[indexPath.row]
+    // Every x pizzas display an ad
+    let interval = 4
+    let displayedAds = indexPath.row / interval
 
-    configure(cell, with: pizza)
-
-    return cell
+    if indexPath.row < (interval - 1) || indexPath.row % interval != 0 {
+      let cell = tableView.dequeueReusableCell(withIdentifier: pizzaCellIdentifier, for: indexPath)
+      let pizza = data[indexPath.row - displayedAds]
+      configure(cell, with: pizza)
+      return cell
+    } else {
+      let cell = tableView.dequeueReusableCell(withIdentifier: adCellIdentifier, for: indexPath)
+      let ad = ads[displayedAds - 1]
+      cell.textLabel?.text = ad.message
+      cell.textLabel?.textAlignment = .center
+      cell.textLabel?.textColor = UIColor.white
+      cell.backgroundColor = ad.color
+      return cell
+    }
   }
 
   private func configure(_ cell: UITableViewCell, with pizza: Pizza) {
