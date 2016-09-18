@@ -5,6 +5,10 @@ class PizzaListViewController: UIViewController {
   @IBOutlet var tableView: UITableView!
   @IBOutlet var spinner: UIActivityIndicatorView!
 
+  @IBOutlet var errorView: UIStackView!
+  @IBOutlet var errorMessageLabel: UILabel!
+  @IBOutlet var errorRetryButton: UIButton!
+
   let pizzaService = PizzaService()
 
   let pizzaCellIdentifier = "pizza"
@@ -27,14 +31,25 @@ class PizzaListViewController: UIViewController {
     tableView.tableFooterView = UIView()
 
     tableView.isHidden = true
+    errorView.isHidden = true
+
+    errorRetryButton.addTarget(self, action: #selector(loadPizzasList), for: .touchUpInside)
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
 
     // Doing this in didAppear just to ensure audience notices the spinner
+    loadPizzasList()
+  }
+
+  func loadPizzasList() {
+    tableView.isHidden = true
+    errorView.isHidden = true
+    spinner.startAnimating() // starting animation shows as well
+
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
-    spinner.startAnimating()
+
     pizzaService.loadPizzas { [weak self] list, error in
       UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
@@ -42,18 +57,15 @@ class PizzaListViewController: UIViewController {
         return
       }
 
-      self.spinner.stopAnimating()
+      self.spinner.stopAnimating() // stop animating hides as well
 
       if let error = error {
-
-        self.presentAlert(forError: error)
-
+        self.errorView.isHidden = false
+        self.errorMessageLabel.text = error.localizedDescription
       } else if let list = list {
-
         self.tableView.isHidden = false
         self.data = list
         self.tableView.reloadData()
-
       } else {
         fatalError("Pizza service returned neither pizza list nor error")
       }
@@ -102,19 +114,5 @@ extension PizzaListViewController: UITableViewDataSource {
 
   private func configure(_ cell: UITableViewCell, with pizza: Pizza) {
     cell.textLabel?.text = "\(pizza.name) ($\(pizza.price))"
-  }
-}
-
-extension UIViewController {
-
-  func presentAlert(forError error: NSError) {
-    let alert = UIAlertController(
-      title: "Oooops",
-      message: error.localizedDescription,
-      preferredStyle: .alert
-    )
-    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: .none))
-
-    present(alert, animated: true, completion: .none)
   }
 }
