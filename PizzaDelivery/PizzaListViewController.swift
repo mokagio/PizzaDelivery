@@ -47,21 +47,21 @@ class PizzaListViewController: UIViewController {
     pizzaService.loadPizzas { [weak self] list, error in
       UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
-      guard let `self` = self else {
-        return
-      }
+      DispatchQueue.main.async { [weak self] in
+        guard let `self` = self else { return }
 
-      self.spinner.stopAnimating() // stop animating hides as well
+        self.spinner.stopAnimating() // stop animating hides as well
 
-      if let error = error {
-        self.errorView.isHidden = false
-        self.errorMessageLabel.text = error.localizedDescription
-      } else if let list = list {
-        self.tableView.isHidden = false
-        self.data = list
-        self.tableView.reloadData()
-      } else {
-        fatalError("Pizza service returned neither pizza list nor error")
+        if let error = error {
+          self.errorView.isHidden = false
+          self.errorMessageLabel.text = error.localizedDescription
+        } else if let list = list {
+          self.tableView.isHidden = false
+          self.data = list
+          self.tableView.reloadData()
+        } else {
+          fatalError("Pizza service returned neither pizza list nor error")
+        }
       }
     }
   }
