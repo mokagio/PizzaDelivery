@@ -53,8 +53,7 @@ class PizzaListViewController: UIViewController {
         self.spinner.stopAnimating() // stop animating hides as well
 
         if let error = error {
-          self.errorView.isHidden = false
-          self.errorMessageLabel.text = error.localizedDescription
+          self.handle(error: error)
         } else if let list = list {
           self.tableView.isHidden = false
           self.data = list
@@ -75,6 +74,27 @@ class PizzaListViewController: UIViewController {
     tableView.tableFooterView = UIView()
 
     tableView.allowsSelection = false
+  }
+
+  private func handle(error: Error) {
+    errorView.isHidden = false
+    errorMessageLabel.text = self.message(forError: error)
+  }
+
+  private func message(forError error: Error) -> String {
+      switch error {
+      case let pizzaServiceError as PizzaServiceError:
+        switch pizzaServiceError {
+        case .wrapped(let innerError):
+          return message(forError: innerError)
+        default:
+          return "An error occurred while getting the pizzas list"
+        }
+      case is JSONParserError:
+        return "The pizza server got confused and returned burgers instead of pizzas"
+      default:
+        return "An error occurred"
+      }
   }
 }
 
