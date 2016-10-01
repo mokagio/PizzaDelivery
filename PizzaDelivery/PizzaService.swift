@@ -10,49 +10,31 @@ class PizzaService {
     self.baseURL = baseURL
   }
 
-  func loadPizzas(completion: @escaping ([Pizza]?, NSError?) -> ()) {
+  func loadPizzas(completion: @escaping ([Pizza]?, PizzaServiceError?) -> ()) {
     session.dataTask(with: baseURL.appendingPathComponent("pizzas")) { data, response, error in
       if let data = data, let _ = response {
         do {
           guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
-            completion(.none, PizzaService.MissingContentError)
+            completion(.none, PizzaServiceError.missingContent)
             return
           }
 
           let pizzaListResponse = try JSONParser.pizzaList(fromJSON: jsonObject)
           completion(pizzaListResponse.list, .none)
-        } catch let e as NSError {
-          completion(.none, e)
         } catch {
-          completion(.none, PizzaService.errorWrapping(error))
+          completion(.none, PizzaServiceError.wrapped(error))
         }
-      } else if let error = error as? NSError {
-        completion(.none, error)
+      } else if let error = error {
+        completion(.none, PizzaServiceError.wrapped(error))
       } else {
-        completion(.none, PizzaService.InconsistenResponseError)
+        completion(.none, PizzaServiceError.inconsistenResponse)
       }
     }.resume()
   }
+}
 
-  private static let errorDomain = "pizzaservice"
-
-  static let InconsistenResponseError = NSError(
-    domain: errorDomain,
-    code: 1,
-    userInfo: [NSLocalizedDescriptionKey: "Inconsistent network response"]
-  )
-
-  static let MissingContentError = NSError(
-    domain: errorDomain,
-    code: 2,
-    userInfo: [NSLocalizedDescriptionKey: "The network response is missing the expected data"]
-  )
-
-  static func errorWrapping(_ error: Error) -> NSError {
-    return NSError(
-      domain: errorDomain,
-      code: 3,
-      userInfo: [NSLocalizedDescriptionKey: "\(error)"]
-    )
-  }
+enum PizzaServiceError: Error {
+  case inconsistenResponse
+  case missingContent
+  case wrapped(Error)
 }
