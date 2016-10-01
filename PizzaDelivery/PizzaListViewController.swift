@@ -73,6 +73,8 @@ class PizzaListViewController: UIViewController {
     tableView.register(UITableViewCell.self, forCellReuseIdentifier: adCellIdentifier)
 
     tableView.tableFooterView = UIView()
+
+    tableView.allowsSelection = false
   }
 }
 
