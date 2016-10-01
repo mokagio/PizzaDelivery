@@ -14,20 +14,13 @@ class PizzaService {
     session.dataTask(with: baseURL.appendingPathComponent("pizzas")) { data, response, error in
       if let data = data, let _ = response {
         do {
-          let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-          guard let jsonPizzas = jsonObject?["pizzas"] as? [[String: Any]] else {
+          guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
             completion(.none, PizzaService.MissingContentError)
             return
           }
 
-          let pizzas = jsonPizzas.flatMap { json -> Pizza? in
-            do {
-              return try JSONParser.pizza(fromJSON: json)
-            } catch {
-              return .none
-            }
-          }
-          completion(pizzas, .none)
+          let pizzaListResponse = try JSONParser.pizzaList(fromJSON: jsonObject)
+          completion(pizzaListResponse.list, .none)
         } catch let e as NSError {
           completion(.none, e)
         } catch {
