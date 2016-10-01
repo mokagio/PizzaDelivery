@@ -20,7 +20,13 @@ class PizzaService {
             return
           }
 
-          let pizzas = jsonPizzas.flatMap { Pizza(jsonObject: $0) }
+          let pizzas = jsonPizzas.flatMap { json -> Pizza? in
+            do {
+              return try JSONParser.pizza(fromJSON: json)
+            } catch {
+              return .none
+            }
+          }
           completion(pizzas, .none)
         } catch let e as NSError {
           completion(.none, e)

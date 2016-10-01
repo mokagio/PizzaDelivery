@@ -16,6 +16,7 @@
 		3FB1DFA81D8CE267001883DC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FB1DFA71D8CE267001883DC /* Assets.xcassets */; };
 		3FB1DFAB1D8CE267001883DC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FB1DFA91D8CE267001883DC /* LaunchScreen.storyboard */; };
 		3FB1DFB61D8CE267001883DC /* PizzaDeliveryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB1DFB51D8CE267001883DC /* PizzaDeliveryTests.swift */; };
+		3FBF71191D9F4DFE00DBFAF5 /* JSONParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF71181D9F4DFE00DBFAF5 /* JSONParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +43,7 @@
 		3FB1DFB11D8CE267001883DC /* PizzaDeliveryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PizzaDeliveryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB1DFB51D8CE267001883DC /* PizzaDeliveryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PizzaDeliveryTests.swift; sourceTree = "<group>"; };
 		3FB1DFB71D8CE267001883DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FBF71181D9F4DFE00DBFAF5 /* JSONParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				3F1CE69D1D8E2A8E00177F9D /* Ad.swift */,
 				3FB1DFA01D8CE267001883DC /* AppDelegate.swift */,
 				3FB1DFAC1D8CE267001883DC /* Info.plist */,
+				3FBF71181D9F4DFE00DBFAF5 /* JSONParser.swift */,
 				3F1CE6991D8E0C3400177F9D /* Pizza.swift */,
 				3F1CE6951D8D559600177F9D /* PizzaListViewController.swift */,
 				3F1CE69B1D8E0EE200177F9D /* PizzaService.swift */,
@@ -222,6 +225,7 @@
 			files = (
 				3F1CE69A1D8E0C3400177F9D /* Pizza.swift in Sources */,
 				3F1CE69C1D8E0EE200177F9D /* PizzaService.swift in Sources */,
+				3FBF71191D9F4DFE00DBFAF5 /* JSONParser.swift in Sources */,
 				3F1CE69E1D8E2A8E00177F9D /* Ad.swift in Sources */,
 				3FB1DFA11D8CE267001883DC /* AppDelegate.swift in Sources */,
 				3F1CE6961D8D559600177F9D /* PizzaListViewController.swift in Sources */,
