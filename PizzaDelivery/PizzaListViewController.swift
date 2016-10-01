@@ -2,6 +2,12 @@ import UIKit
 
 class PizzaListViewController: UIViewController {
 
+  enum State {
+    case loading
+    case loaded([Either<Pizza, Ad>])
+    case errored(Error)
+  }
+
   @IBOutlet var tableView: UITableView!
   @IBOutlet var spinner: UIActivityIndicatorView!
 
@@ -9,12 +15,12 @@ class PizzaListViewController: UIViewController {
   @IBOutlet var errorMessageLabel: UILabel!
   @IBOutlet var errorRetryButton: UIButton!
 
+  var state = State.loading
+
   let pizzaService = PizzaService()
 
   let pizzaCellIdentifier = "pizza"
   let adCellIdentifier = "ad"
-
-  var data: [Either<Pizza, Ad>]?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -23,10 +29,9 @@ class PizzaListViewController: UIViewController {
 
     configureTableView()
     errorRetryButton.addTarget(self, action: #selector(loadPizzasList), for: .touchUpInside)
-
     spinner.hidesWhenStopped = true
-    tableView.isHidden = true
-    errorView.isHidden = true
+
+    updateView(withState: .loading)
   }
 
   override func viewDidAppear(_ animated: Bool) {
@@ -36,28 +41,47 @@ class PizzaListViewController: UIViewController {
     loadPizzasList()
   }
 
-  internal func loadPizzasList() {
-    tableView.isHidden = true
-    errorView.isHidden = true
-    spinner.startAnimating() // starting animation shows as well
+  private func updateView(withState state: State) {
+    self.state = state
 
+    switch state {
+    case .errored(let error):
+      errorView.isHidden = false
+      spinner.stopAnimating()
+      tableView.isHidden = true
+      errorMessageLabel.text = message(forError: error)
+
+    case .loading:
+      errorView.isHidden = true
+      spinner.startAnimating() // starting animation shows as well
+      tableView.isHidden = true
+
+    case .loaded:
+      tableView.isHidden = false
+      tableView.reloadData()
+      spinner.stopAnimating()
+      errorView.isHidden = true
+    }
+  }
+
+  internal func loadPizzasList() {
+    // TODO: in a "real" app you'd use something more robust, given that the
+    // network activity indicator is a shared resource
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
     pizzaService.loadPizzas { [weak self] result in
+      // TODO: in a "real" app you'd use something more robust, given that the
+      // network activity indicator is a shared resource
       UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
       DispatchQueue.main.async { [weak self] in
         guard let `self` = self else { return }
 
-        self.spinner.stopAnimating() // stop animating hides as well
-
         switch result {
           case .success(let list):
-            self.tableView.isHidden = false
-            self.data = interpose(list, withElementsFrom: Ad.dummyAds(), count: 3)
-            self.tableView.reloadData()
+            self.updateView(withState: .loaded(interpose(list, withElementsFrom: Ad.dummyAds(), count: 3)))
           case .failure(let error):
-            self.handle(error: error)
+            self.updateView(withState: .errored(error))
         }
       }
     }
@@ -72,11 +96,6 @@ class PizzaListViewController: UIViewController {
     tableView.tableFooterView = UIView()
 
     tableView.allowsSelection = false
-  }
-
-  private func handle(error: Error) {
-    errorView.isHidden = false
-    errorMessageLabel.text = self.message(forError: error)
   }
 
   private func message(forError error: Error) -> String {
@@ -108,23 +127,29 @@ extension PizzaListViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return data?.count ?? 0
+    switch state {
+    case .loaded(let data):
+      return data.count
+    case _:
+      return 0
+    }
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let data = data else {
+    switch state {
+    case .loaded(let data):
+      switch data[indexPath.row] {
+      case .left(let pizza):
+        let cell = tableView.dequeueReusableCell(withIdentifier: pizzaCellIdentifier, for: indexPath)
+        configure(cell: cell, with: pizza)
+        return cell
+      case .right(let ad):
+        let cell = tableView.dequeueReusableCell(withIdentifier: adCellIdentifier, for: indexPath)
+        configure(cell: cell, with: ad)
+        return cell
+      }
+    case _:
       return UITableViewCell()
-    }
-
-    switch data[indexPath.row] {
-    case .left(let pizza):
-      let cell = tableView.dequeueReusableCell(withIdentifier: pizzaCellIdentifier, for: indexPath)
-      configure(cell: cell, with: pizza)
-      return cell
-    case .right(let ad):
-      let cell = tableView.dequeueReusableCell(withIdentifier: adCellIdentifier, for: indexPath)
-      configure(cell: cell, with: ad)
-      return cell
     }
   }
 
