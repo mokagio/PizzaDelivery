@@ -14,7 +14,7 @@ class PizzaService {
     session.dataTask(with: baseURL.appendingPathComponent("pizzas")) { data, response, error in
       if let data = data, let _ = response {
         do {
-          guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] else {
+          guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
             completion(.none, PizzaService.MissingContentError)
             return
           }
