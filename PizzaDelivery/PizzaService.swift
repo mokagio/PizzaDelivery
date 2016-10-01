@@ -10,29 +10,20 @@ class PizzaService {
     self.baseURL = baseURL
   }
 
-  func loadPizzas(completion: @escaping ([Pizza]?, PizzaServiceError?) -> ()) {
-    session.dataTask(with: baseURL.appendingPathComponent("pizzas")) { data, response, error in
-      switch (data, response, error) {
-
-      case (.some(let data), .some, _):
-        do {
-          guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
-            completion(.none, PizzaServiceError.missingContent)
-            return
-          }
-
-          let pizzaListResponse = try JSONParser.pizzaList(fromJSON: jsonObject)
-          completion(pizzaListResponse.list, .none)
-        } catch {
-          completion(.none, PizzaServiceError.wrapped(error))
+  func loadPizzas(completion: @escaping (Result<[Pizza], PizzaServiceError>) -> ()) {
+    session.yow_dataTask(with: baseURL.appendingPathComponent("pizzas")) { (result: Result<Data, NetworkingError>) -> () in
+      let x: Result<[Pizza], PizzaServiceError> = result
+        .mapError { PizzaServiceError.wrapped($0) }
+        .flatMap { data in
+          return JSONSerialization.yow_jsonObject(with: data)
+            .mapError { PizzaServiceError.wrapped($0) }
         }
-
-      case (_, _, .some(let error)):
-        completion(.none, PizzaServiceError.wrapped(error))
-
-      case _:
-        completion(.none, PizzaServiceError.inconsistenResponse)
-      }
+        .flatMap { json in
+          return JSONParser.pizzaList(fromJSON: json)
+            .mapError { PizzaServiceError.wrapped($0) }
+        }
+        .map { $0.list }
+      completion(x)
     }.resume()
   }
 }

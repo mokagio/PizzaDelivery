@@ -13,42 +13,49 @@ struct JSONParser {
     }
   }
 
-  static func pizzaList(fromJSON json: JSONObject) throws -> PizzaListResponse {
-    guard let list = json[Keys.PizzaList.List] as? JSONArray else {
-      throw JSONParserError.missingKey(Keys.PizzaList.List)
+  static func pizzaList(fromJSON json: JSON) -> Result<PizzaListResponse, JSONParserError> {
+    switch json {
+    case .object(let object): return pizzaList(fromJSONObject: object)
+    case .array: return Result(error: .unexpectedJSONType)
+    }
+  }
+
+  private static func pizzaList(fromJSONObject jsonObject: JSONObject) -> Result<PizzaListResponse, JSONParserError> {
+    guard let list = jsonObject[Keys.PizzaList.List] as? JSONArray else {
+      return Result(error: JSONParserError.missingKey(Keys.PizzaList.List))
     }
 
     var errors = [Error]()
     var pizzas = [Pizza]()
 
     list.forEach { json in
-      do {
-        pizzas.append(try pizza(fromJSON: json))
-      } catch {
-        errors.append(error)
+      switch pizza(fromJSON: json) {
+      case .success(let pizza): pizzas.append(pizza)
+      case .failure(let error): errors.append(error)
       }
     }
 
     if pizzas.count == 0 && errors.count > 0 {
-      throw JSONParserError.failedArrayParsing(errors)
+      return Result(error: JSONParserError.failedArrayParsing(errors))
     } else {
-      return PizzaListResponse(list: pizzas)
+      return Result(value: PizzaListResponse(list: pizzas))
     }
   }
 
-  static func pizza(fromJSON json: JSONObject) throws -> Pizza {
+  static func pizza(fromJSON json: JSONObject) -> Result<Pizza, JSONParserError> {
     guard let name = json[Keys.Pizza.Name] as? String else {
-      throw JSONParserError.missingKey(Keys.Pizza.Name)
+      return Result(error: JSONParserError.missingKey(Keys.Pizza.Name))
     }
     guard let price = json[Keys.Pizza.Price] as? Double else {
-      throw JSONParserError.missingKey(Keys.Pizza.Price)
+      return Result(error: JSONParserError.missingKey(Keys.Pizza.Price))
     }
 
-    return Pizza(price: price, name: name)
+    return Result(value: Pizza(price: price, name: name))
   }
 }
 
 enum JSONParserError: Error {
+  case unexpectedJSONType
   case missingKey(String)
   case failedArrayParsing([Error])
 }
