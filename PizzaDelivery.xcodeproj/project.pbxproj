@@ -26,9 +26,32 @@
 		3FBF71211D9F5CB500DBFAF5 /* Interpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF71201D9F5CB500DBFAF5 /* Interpose.swift */; };
 		3FBF71231D9F682600DBFAF5 /* URLSession+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF71221D9F682600DBFAF5 /* URLSession+Result.swift */; };
 		3FBF71251D9F6ED600DBFAF5 /* JSONSerialization+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF71241D9F6ED600DBFAF5 /* JSONSerialization+Result.swift */; };
+		3FFA7E2A1DA27B5D00033BC5 /* GenericTableViewController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F327C621DA2725C00656DE9 /* GenericTableViewController.framework */; };
+		3FFA7E2B1DA27B5D00033BC5 /* GenericTableViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F327C621DA2725C00656DE9 /* GenericTableViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3F327C611DA2725C00656DE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F327C5B1DA2725C00656DE9 /* GenericTableViewController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3F0340B41D1BC056002C34BB;
+			remoteInfo = GenericTableViewController;
+		};
+		3F327C631DA2725C00656DE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F327C5B1DA2725C00656DE9 /* GenericTableViewController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3F0340DC1D1BC23A002C34BB;
+			remoteInfo = Tests;
+		};
+		3F327C651DA2725C00656DE9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F327C5B1DA2725C00656DE9 /* GenericTableViewController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3F0340F71D1C7A07002C34BB;
+			remoteInfo = Example;
+		};
 		3FB1DFB21D8CE267001883DC /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3FB1DF951D8CE266001883DC /* Project object */;
@@ -36,7 +59,28 @@
 			remoteGlobalIDString = 3FB1DF9C1D8CE266001883DC;
 			remoteInfo = PizzaDelivery;
 		};
+		3FFA7E2C1DA27B5D00033BC5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3F327C5B1DA2725C00656DE9 /* GenericTableViewController.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 3F0340B31D1BC056002C34BB;
+			remoteInfo = GenericTableViewController;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3FFA7E2E1DA27B5D00033BC5 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3FFA7E2B1DA27B5D00033BC5 /* GenericTableViewController.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3F1CE6951D8D559600177F9D /* PizzaListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PizzaListViewController.swift; sourceTree = "<group>"; };
@@ -46,6 +90,7 @@
 		3F1CE7861D8F3F4800177F9D /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
 		3F327C4B1DA26A0500656DE9 /* PizzaDeliveryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PizzaDeliveryError.swift; sourceTree = "<group>"; };
 		3F327C541DA2717000656DE9 /* StatefulContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatefulContainerViewController.swift; sourceTree = "<group>"; };
+		3F327C5B1DA2725C00656DE9 /* GenericTableViewController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = GenericTableViewController.xcodeproj; path = Carthage/Checkouts/GenericTableViewController/GenericTableViewController.xcodeproj; sourceTree = "<group>"; };
 		3F8028831D9A87B10027DDFA /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		3FB1DF9D1D8CE267001883DC /* PizzaDelivery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PizzaDelivery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB1DFA01D8CE267001883DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +114,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FFA7E2A1DA27B5D00033BC5 /* GenericTableViewController.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -91,9 +137,28 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
+		3F327C5A1DA2723000656DE9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3F327C5B1DA2725C00656DE9 /* GenericTableViewController.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3F327C5C1DA2725C00656DE9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3F327C621DA2725C00656DE9 /* GenericTableViewController.framework */,
+				3F327C641DA2725C00656DE9 /* Tests.xctest */,
+				3F327C661DA2725C00656DE9 /* Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3FB1DF941D8CE266001883DC = {
 			isa = PBXGroup;
 			children = (
+				3F327C5A1DA2723000656DE9 /* Frameworks */,
 				3FB1DF9F1D8CE267001883DC /* PizzaDelivery */,
 				3FB1DFB41D8CE267001883DC /* PizzaDeliveryTests */,
 				3FB1DF9E1D8CE267001883DC /* Products */,
@@ -155,10 +220,12 @@
 				3FB1DF991D8CE266001883DC /* Sources */,
 				3FB1DF9A1D8CE266001883DC /* Frameworks */,
 				3FB1DF9B1D8CE266001883DC /* Resources */,
+				3FFA7E2E1DA27B5D00033BC5 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3FFA7E2D1DA27B5D00033BC5 /* PBXTargetDependency */,
 			);
 			name = PizzaDelivery;
 			productName = PizzaDelivery;
@@ -217,6 +284,12 @@
 			mainGroup = 3FB1DF941D8CE266001883DC;
 			productRefGroup = 3FB1DF9E1D8CE267001883DC /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3F327C5C1DA2725C00656DE9 /* Products */;
+					ProjectRef = 3F327C5B1DA2725C00656DE9 /* GenericTableViewController.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3FB1DF9C1D8CE266001883DC /* PizzaDelivery */,
@@ -224,6 +297,30 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3F327C621DA2725C00656DE9 /* GenericTableViewController.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = GenericTableViewController.framework;
+			remoteRef = 3F327C611DA2725C00656DE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3F327C641DA2725C00656DE9 /* Tests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = Tests.xctest;
+			remoteRef = 3F327C631DA2725C00656DE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3F327C661DA2725C00656DE9 /* Example.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = Example.app;
+			remoteRef = 3F327C651DA2725C00656DE9 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3FB1DF9B1D8CE266001883DC /* Resources */ = {
@@ -283,6 +380,11 @@
 			isa = PBXTargetDependency;
 			target = 3FB1DF9C1D8CE266001883DC /* PizzaDelivery */;
 			targetProxy = 3FB1DFB21D8CE267001883DC /* PBXContainerItemProxy */;
+		};
+		3FFA7E2D1DA27B5D00033BC5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = GenericTableViewController;
+			targetProxy = 3FFA7E2C1DA27B5D00033BC5 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -404,8 +506,13 @@
 		3FB1DFBB1D8CE267001883DC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 63EWLY2W55;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = PizzaDelivery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mokagio.PizzaDelivery;
@@ -417,8 +524,13 @@
 		3FB1DFBC1D8CE267001883DC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 63EWLY2W55;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = PizzaDelivery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mokagio.PizzaDelivery;
