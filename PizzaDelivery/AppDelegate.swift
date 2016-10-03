@@ -60,34 +60,38 @@ func x() -> StatefulContainerViewController {
     case .errored(let error):
       return ErrorViewController(error: error)
     case .loaded(let data):
-      let configuration: TableViewConfiguration<Either<Pizza, Ad>> = TableViewConfiguration(
-        data: data,
-        rowsConfiguration: RowConfiguration<Either<Pizza, Ad>>(
-          identifier: "cell",
-          cellClass: UITableViewCell.self,
-          configurator: { (item, cell) -> UITableViewCell in
-            switch item {
-            case .left(let pizza):
-              cell.textLabel?.text = "\(pizza.name) ($\(pizza.price))"
-            case .right(let ad):
-              cell.textLabel?.text = ad.message
-              cell.textLabel?.textAlignment = .center
-              cell.textLabel?.textColor = UIColor.white
-              cell.backgroundColor = ad.color
-            }
-            return cell
-          }
-        )
-      )
-
-      let vc = GenericTableViewController()
-      vc.tableViewConfigurator = configuration.boxedToAny()
-
-      return vc
+      return pizzaListViewController(list: data)
     }
   }
 
   container.title = "🍕"
 
   return container
-} 
+}
+
+func pizzaListViewController(list: [Either<Pizza, Ad>]) -> UIViewController {
+  let configuration: TableViewConfiguration<Either<Pizza, Ad>> = TableViewConfiguration(
+    data: list,
+    rowsConfiguration: RowConfiguration<Either<Pizza, Ad>>(
+      identifier: "cell",
+      cellClass: UITableViewCell.self,
+      configurator: { (item, cell) -> UITableViewCell in
+        switch item {
+        case .left(let pizza):
+          cell.textLabel?.text = "\(pizza.name) ($\(pizza.price))"
+        case .right(let ad):
+          cell.textLabel?.text = ad.message
+          cell.textLabel?.textAlignment = .center
+          cell.textLabel?.textColor = UIColor.white
+          cell.backgroundColor = ad.color
+        }
+        return cell
+      }
+    )
+  )
+
+  let vc = GenericTableViewController()
+  vc.tableViewConfigurator = configuration.boxedToAny()
+
+  return vc
+}
