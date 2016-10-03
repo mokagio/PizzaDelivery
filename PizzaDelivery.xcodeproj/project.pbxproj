@@ -30,6 +30,8 @@
 		3FFA7E2B1DA27B5D00033BC5 /* GenericTableViewController.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3F327C621DA2725C00656DE9 /* GenericTableViewController.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3FFA7E321DA281B200033BC5 /* ErrorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFA7E301DA281B200033BC5 /* ErrorViewController.swift */; };
 		3FFA7E331DA281B200033BC5 /* ErrorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FFA7E311DA281B200033BC5 /* ErrorViewController.xib */; };
+		3FFA7E381DA2834300033BC5 /* LoadingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FFA7E361DA2834300033BC5 /* LoadingViewController.swift */; };
+		3FFA7E391DA2834300033BC5 /* LoadingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3FFA7E371DA2834300033BC5 /* LoadingViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,8 @@
 		3FBF71241D9F6ED600DBFAF5 /* JSONSerialization+Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSONSerialization+Result.swift"; sourceTree = "<group>"; };
 		3FFA7E301DA281B200033BC5 /* ErrorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorViewController.swift; sourceTree = "<group>"; };
 		3FFA7E311DA281B200033BC5 /* ErrorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ErrorViewController.xib; sourceTree = "<group>"; };
+		3FFA7E361DA2834300033BC5 /* LoadingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoadingViewController.swift; sourceTree = "<group>"; };
+		3FFA7E371DA2834300033BC5 /* LoadingViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoadingViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +199,8 @@
 				3FBF711E1D9F557B00DBFAF5 /* JSON.swift */,
 				3FBF71181D9F4DFE00DBFAF5 /* JSONParser.swift */,
 				3FBF71241D9F6ED600DBFAF5 /* JSONSerialization+Result.swift */,
+				3FFA7E361DA2834300033BC5 /* LoadingViewController.swift */,
+				3FFA7E371DA2834300033BC5 /* LoadingViewController.xib */,
 				3F1CE6991D8E0C3400177F9D /* Pizza.swift */,
 				3F327C4B1DA26A0500656DE9 /* PizzaDeliveryError.swift */,
 				3FBF711C1D9F507900DBFAF5 /* PizzaListResponse.swift */,
@@ -336,6 +342,7 @@
 				3FB1DFAB1D8CE267001883DC /* LaunchScreen.storyboard in Resources */,
 				3FFA7E331DA281B200033BC5 /* ErrorViewController.xib in Resources */,
 				3FB1DFA81D8CE267001883DC /* Assets.xcassets in Resources */,
+				3FFA7E391DA2834300033BC5 /* LoadingViewController.xib in Resources */,
 				3FB1DFA61D8CE267001883DC /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -356,6 +363,7 @@
 			files = (
 				3FBF711D1D9F507900DBFAF5 /* PizzaListResponse.swift in Sources */,
 				3FBF71211D9F5CB500DBFAF5 /* Interpose.swift in Sources */,
+				3FFA7E381DA2834300033BC5 /* LoadingViewController.swift in Sources */,
 				3F1CE69A1D8E0C3400177F9D /* Pizza.swift in Sources */,
 				3F1CE69C1D8E0EE200177F9D /* PizzaService.swift in Sources */,
 				3FBF71191D9F4DFE00DBFAF5 /* JSONParser.swift in Sources */,

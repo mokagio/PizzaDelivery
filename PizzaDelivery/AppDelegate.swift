@@ -56,7 +56,7 @@ func x() -> StatefulContainerViewController {
   let container = containerViewController(withInitialState: initialState) { (state) -> UIViewController in
     switch state {
     case .loading:
-      return loadingViewController()
+      return LoadingViewController()
     case .errored(let error):
       return ErrorViewController(error: error)
     case .loaded(let data):
@@ -90,10 +90,4 @@ func x() -> StatefulContainerViewController {
   container.title = "🍕"
 
   return container
-}
-
-func loadingViewController() -> UIViewController {
-  let vc = UIViewController()
-  vc.view.backgroundColor = UIColor.yellow
-  return vc
-}
+} 
