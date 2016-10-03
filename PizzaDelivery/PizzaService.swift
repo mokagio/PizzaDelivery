@@ -13,12 +13,8 @@ class PizzaService {
   func loadPizzas(completion: @escaping (Result<[Pizza], PizzaDeliveryError>) -> ()) {
     session.yow_dataTask(with: baseURL.appendingPathComponent("pizzas")) { (result: Result<Data, PizzaDeliveryError>) -> () in
       let x: Result<[Pizza], PizzaDeliveryError> = result
-        .flatMap { data in
-          return JSONSerialization.yow_jsonObject(with: data)
-        }
-        .flatMap { json in
-          return JSONParser.pizzaList(fromJSON: json)
-        }
+        .flatMap(JSONSerialization.yow_jsonObject)
+        .flatMap(JSONParser.pizzaList)
         .map { $0.list }
       completion(x)
     }.resume()
