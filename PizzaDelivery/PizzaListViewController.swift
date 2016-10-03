@@ -81,17 +81,22 @@ class PizzaListViewController: UIViewController {
 
   private func message(forError error: Error) -> String {
       switch error {
-      case let pizzaServiceError as PizzaServiceError:
+      case let pizzaServiceError as PizzaDeliveryError:
         switch pizzaServiceError {
         case .wrapped(let innerError):
           return message(forError: innerError)
-        default:
-          return "An error occurred while getting the pizzas list"
+        case .networking(let networkingError):
+          switch networkingError {
+          case .httpError(let code):
+            return "There has been an error while connecting to the pizza server. Code \(code)"
+          default:
+            return "There has been an error while connecting to the pizza server"
+          }
+        case .jsonDeserialization, .parsing:
+          return "The pizza server got confused and returned burgers instead of pizzas"
         }
-      case is JSONParserError:
-        return "The pizza server got confused and returned burgers instead of pizzas"
       default:
-        return "An error occurred"
+        return "An error occurred while getting the pizzas list"
       }
   }
 }

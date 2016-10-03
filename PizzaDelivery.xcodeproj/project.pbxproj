@@ -12,6 +12,7 @@
 		3F1CE69C1D8E0EE200177F9D /* PizzaService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CE69B1D8E0EE200177F9D /* PizzaService.swift */; };
 		3F1CE69E1D8E2A8E00177F9D /* Ad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CE69D1D8E2A8E00177F9D /* Ad.swift */; };
 		3F1CE7871D8F3F4800177F9D /* Either.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1CE7861D8F3F4800177F9D /* Either.swift */; };
+		3F327C4C1DA26A0500656DE9 /* PizzaDeliveryError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F327C4B1DA26A0500656DE9 /* PizzaDeliveryError.swift */; };
 		3F8028841D9A87B10027DDFA /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8028831D9A87B10027DDFA /* Result.swift */; };
 		3FB1DFA11D8CE267001883DC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB1DFA01D8CE267001883DC /* AppDelegate.swift */; };
 		3FB1DFA61D8CE267001883DC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FB1DFA41D8CE267001883DC /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 		3F1CE69B1D8E0EE200177F9D /* PizzaService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PizzaService.swift; sourceTree = "<group>"; };
 		3F1CE69D1D8E2A8E00177F9D /* Ad.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ad.swift; sourceTree = "<group>"; };
 		3F1CE7861D8F3F4800177F9D /* Either.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Either.swift; sourceTree = "<group>"; };
+		3F327C4B1DA26A0500656DE9 /* PizzaDeliveryError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PizzaDeliveryError.swift; sourceTree = "<group>"; };
 		3F8028831D9A87B10027DDFA /* Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		3FB1DF9D1D8CE267001883DC /* PizzaDelivery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PizzaDelivery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB1DFA01D8CE267001883DC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				3FBF71181D9F4DFE00DBFAF5 /* JSONParser.swift */,
 				3FBF71241D9F6ED600DBFAF5 /* JSONSerialization+Result.swift */,
 				3F1CE6991D8E0C3400177F9D /* Pizza.swift */,
+				3F327C4B1DA26A0500656DE9 /* PizzaDeliveryError.swift */,
 				3FBF711C1D9F507900DBFAF5 /* PizzaListResponse.swift */,
 				3F1CE6951D8D559600177F9D /* PizzaListViewController.swift */,
 				3F1CE69B1D8E0EE200177F9D /* PizzaService.swift */,
@@ -255,6 +258,7 @@
 				3FBF71251D9F6ED600DBFAF5 /* JSONSerialization+Result.swift in Sources */,
 				3F1CE7871D8F3F4800177F9D /* Either.swift in Sources */,
 				3F8028841D9A87B10027DDFA /* Result.swift in Sources */,
+				3F327C4C1DA26A0500656DE9 /* PizzaDeliveryError.swift in Sources */,
 				3F1CE6961D8D559600177F9D /* PizzaListViewController.swift in Sources */,
 				3FBF711F1D9F557B00DBFAF5 /* JSON.swift in Sources */,
 			);
