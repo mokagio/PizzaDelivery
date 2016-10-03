@@ -58,7 +58,7 @@ func x() -> StatefulContainerViewController {
     case .loading:
       return loadingViewController()
     case .errored(let error):
-      return errorViewController(error)
+      return ErrorViewController(error: error)
     case .loaded(let data):
       let configuration: TableViewConfiguration<Either<Pizza, Ad>> = TableViewConfiguration(
         data: data,
@@ -95,11 +95,5 @@ func x() -> StatefulContainerViewController {
 func loadingViewController() -> UIViewController {
   let vc = UIViewController()
   vc.view.backgroundColor = UIColor.yellow
-  return vc
-}
-
-func errorViewController(_ error: Error) -> UIViewController {
-  let vc = UIViewController()
-  vc.view.backgroundColor = UIColor.red
   return vc
 }
