@@ -23,6 +23,7 @@
 		3FBF711F1D9F557B00DBFAF5 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF711E1D9F557B00DBFAF5 /* JSON.swift */; };
 		3FBF71211D9F5CB500DBFAF5 /* Interpose.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF71201D9F5CB500DBFAF5 /* Interpose.swift */; };
 		3FBF71231D9F682600DBFAF5 /* URLSession+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF71221D9F682600DBFAF5 /* URLSession+Result.swift */; };
+		3FBF71251D9F6ED600DBFAF5 /* JSONSerialization+Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FBF71241D9F6ED600DBFAF5 /* JSONSerialization+Result.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		3FBF711E1D9F557B00DBFAF5 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		3FBF71201D9F5CB500DBFAF5 /* Interpose.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interpose.swift; sourceTree = "<group>"; };
 		3FBF71221D9F682600DBFAF5 /* URLSession+Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLSession+Result.swift"; sourceTree = "<group>"; };
+		3FBF71241D9F6ED600DBFAF5 /* JSONSerialization+Result.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "JSONSerialization+Result.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +119,7 @@
 				3FBF71201D9F5CB500DBFAF5 /* Interpose.swift */,
 				3FBF711E1D9F557B00DBFAF5 /* JSON.swift */,
 				3FBF71181D9F4DFE00DBFAF5 /* JSONParser.swift */,
+				3FBF71241D9F6ED600DBFAF5 /* JSONSerialization+Result.swift */,
 				3F1CE6991D8E0C3400177F9D /* Pizza.swift */,
 				3FBF711C1D9F507900DBFAF5 /* PizzaListResponse.swift */,
 				3F1CE6951D8D559600177F9D /* PizzaListViewController.swift */,
@@ -249,6 +252,7 @@
 				3F1CE69E1D8E2A8E00177F9D /* Ad.swift in Sources */,
 				3FB1DFA11D8CE267001883DC /* AppDelegate.swift in Sources */,
 				3FBF71231D9F682600DBFAF5 /* URLSession+Result.swift in Sources */,
+				3FBF71251D9F6ED600DBFAF5 /* JSONSerialization+Result.swift in Sources */,
 				3F1CE7871D8F3F4800177F9D /* Either.swift in Sources */,
 				3F8028841D9A87B10027DDFA /* Result.swift in Sources */,
 				3F1CE6961D8D559600177F9D /* PizzaListViewController.swift in Sources */,
