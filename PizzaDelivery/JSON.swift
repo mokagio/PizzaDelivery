@@ -5,3 +5,8 @@
 typealias JSONObject = [String: Any]
 
 typealias JSONArray = [JSONObject]
+
+enum JSON {
+  case object(JSONObject)
+  case array(JSONArray)
+}
