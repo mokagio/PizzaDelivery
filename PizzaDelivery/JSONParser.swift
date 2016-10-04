@@ -13,8 +13,8 @@ struct JSONParser {
     }
   }
 
-  static func pizzaList(fromJSON json: [String: Any]) throws -> PizzaListResponse {
-    guard let list = json[Keys.PizzaList.List] as? [[String: Any]] else {
+  static func pizzaList(fromJSON json: JSONObject) throws -> PizzaListResponse {
+    guard let list = json[Keys.PizzaList.List] as? JSONArray else {
       throw missingKey(key: Keys.PizzaList.List)
     }
 
@@ -36,7 +36,7 @@ struct JSONParser {
     }
   }
 
-  static func pizza(fromJSON json: [String: Any]) throws -> Pizza {
+  static func pizza(fromJSON json: JSONObject) throws -> Pizza {
     guard let name = json[Keys.Pizza.Name] as? String else {
       throw missingKey(key: Keys.Pizza.Name)
     }
