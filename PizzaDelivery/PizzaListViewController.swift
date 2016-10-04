@@ -58,7 +58,7 @@ class PizzaListViewController: UIViewController {
           self.tableView.reloadData()
         case (.none, .some(let error)):
           self.errorView.isHidden = false
-          self.errorMessageLabel.text = error.localizedDescription
+          self.errorMessageLabel.text = self.message(for: error)
         case _:
           fatalError("Pizza service returned neither pizza list nor error")
         }
@@ -75,6 +75,17 @@ class PizzaListViewController: UIViewController {
     tableView.tableFooterView = UIView()
 
     tableView.allowsSelection = false
+  }
+
+  private func message(for error: Error) -> String {
+    switch error {
+    case is JSONParserError:
+      return "The pizza server returned gibberish"
+    case is PizzaServiceError:
+      return "The pizza server behaved unexpectedly"
+    case _:
+      return error.localizedDescription
+    }
   }
 }
 
