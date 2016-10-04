@@ -14,8 +14,7 @@ class PizzaListViewController: UIViewController {
   let pizzaCellIdentifier = "pizza"
   let adCellIdentifier = "ad"
 
-  var data: [Pizza]?
-  var ads = Ad.dummyAds()
+  var data: [Either<Pizza, Ad>]?
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -54,7 +53,7 @@ class PizzaListViewController: UIViewController {
         switch (list, error) {
         case (.some(let list), .none):
           self.tableView.isHidden = false
-          self.data = list
+          self.data = interpose(list, withElementsFrom: Ad.dummyAds(), count: 3)
           self.tableView.reloadData()
         case (.none, .some(let error)):
           self.errorView.isHidden = false
@@ -96,11 +95,7 @@ extension PizzaListViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    guard let data = data else {
-      return 0
-    }
-
-    return data.count + ads.count
+    return data?.count ?? 0
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -108,19 +103,13 @@ extension PizzaListViewController: UITableViewDataSource {
       return UITableViewCell()
     }
 
-    // Every x pizzas display an ad
-    let interval = 4
-    let displayedAds = indexPath.row / interval
-    let shouldDisplayPizza = indexPath.row < (interval - 1) || indexPath.row % interval != 0
-
-    if shouldDisplayPizza {
+    switch data[indexPath.row] {
+    case .left(let pizza):
       let cell = tableView.dequeueReusableCell(withIdentifier: pizzaCellIdentifier, for: indexPath)
-      let pizza = data[indexPath.row - displayedAds]
       configure(cell: cell, with: pizza)
       return cell
-    } else {
+    case .right(let ad):
       let cell = tableView.dequeueReusableCell(withIdentifier: adCellIdentifier, for: indexPath)
-      let ad = ads[displayedAds - 1]
       configure(cell: cell, with: ad)
       return cell
     }
