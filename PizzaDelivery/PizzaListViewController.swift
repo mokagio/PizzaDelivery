@@ -51,14 +51,15 @@ class PizzaListViewController: UIViewController {
 
         self.spinner.stopAnimating() // stop animating hides as well
 
-        if let error = error {
-          self.errorView.isHidden = false
-          self.errorMessageLabel.text = error.localizedDescription
-        } else if let list = list {
+        switch (list, error) {
+        case (.some(let list), .none):
           self.tableView.isHidden = false
           self.data = list
           self.tableView.reloadData()
-        } else {
+        case (.none, .some(let error)):
+          self.errorView.isHidden = false
+          self.errorMessageLabel.text = error.localizedDescription
+        case _:
           fatalError("Pizza service returned neither pizza list nor error")
         }
       }

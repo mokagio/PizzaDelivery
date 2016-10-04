@@ -12,7 +12,8 @@ class PizzaService {
 
   func loadPizzas(completion: @escaping ([Pizza]?, NSError?) -> ()) {
     session.dataTask(with: baseURL.appendingPathComponent("pizzas")) { data, response, error in
-      if let data = data, let _ = response {
+      switch (data, response, error) {
+      case (.some(let data), .some, _):
         do {
           guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
             completion(.none, PizzaService.MissingContentError)
@@ -26,9 +27,11 @@ class PizzaService {
         } catch {
           completion(.none, PizzaService.errorWrapping(error))
         }
-      } else if let error = error as? NSError {
+      case (_, _, .some(let error as NSError)):
         completion(.none, error)
-      } else {
+      case (_, _, .some(let error)):
+        completion(.none, PizzaService.errorWrapping(error))
+      case _:
         completion(.none, PizzaService.InconsistenResponseError)
       }
     }.resume()
