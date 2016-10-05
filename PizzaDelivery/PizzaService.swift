@@ -14,15 +14,15 @@ class PizzaService {
     session.dataTask(with: baseURL.appendingPathComponent("pizzas")) { data, response, error in
       switch (data, response, error) {
       case (.some(let data), .some, _):
-        do {
-          guard let jsonObject = try JSONSerialization.jsonObject(with: data, options: []) as? JSONObject else {
-            completion(.none, PizzaServiceError.missingContent)
-            return
+        switch JSONSerialization.yow_jsonObject(with: data) {
+        case .success(let json):
+          switch JSONParser.pizzaList(from: json) {
+          case .success(let response):
+            completion(response.list, .none)
+          case .failure(let error):
+            completion(.none, error)
           }
-
-          let pizzaListResponse = try JSONParser.pizzaList(fromJSON: jsonObject)
-          completion(pizzaListResponse.list, .none)
-        } catch {
+        case .failure(let error):
           completion(.none, error)
         }
       case (_, _, .some(let error)):
