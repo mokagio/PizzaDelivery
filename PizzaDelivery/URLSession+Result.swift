@@ -19,39 +19,29 @@ extension URLSession {
 
   func yow_dataTask(with url: URL, completion: @escaping (Result<(Data, HTTPStatusCode), NetworkingError>) -> ()) -> URLSessionDataTask {
     return yow_dataTask(with: url) { (result: Result<(Data, URLResponse), NetworkingError>) -> () in
-      let newResult: Result<(Data, HTTPStatusCode), NetworkingError> = {
-        switch result {
-        case .success(let data, let response):
+      completion(
+        result.flatMap { data, response in
           guard let httpResponse = response as? HTTPURLResponse else {
             return Result(error: .notHTTPResponse)
           }
 
           return Result(value: (data, httpResponse.statusCode))
-        case .failure(let error):
-          return Result(error: error)
         }
-      }()
-
-      completion(newResult)
+      )
     }
   }
 
   func yow_dataTask(with url: URL, completion: @escaping (Result<Data, NetworkingError>) -> ()) -> URLSessionDataTask {
     return yow_dataTask(with: url) { (result: Result<(Data, HTTPStatusCode), NetworkingError>) -> () in
-      let newResult: Result<Data, NetworkingError> = {
-        switch result {
-        case .success(let data, let statusCode):
+      completion(
+        result.flatMap { data, statusCode in
           if statusCode >= 400 {
             return Result(error: .httpError(statusCode))
           } else {
             return Result(value: data)
           }
-        case .failure(let error):
-          return Result(error: error)
         }
-      }()
-
-      completion(newResult)
+      )
     }
   }
 }
