@@ -12,22 +12,19 @@ class PizzaService {
 
   func loadPizzas(completion: @escaping (Result<[Pizza], PizzaServiceError>) -> ()) {
     session.yow_dataTask(with: baseURL.appendingPathComponent("pizzas")) { (result: Result<Data, NetworkingError>) in
-      switch result {
-      case .success(let data):
-        switch JSONSerialization.yow_jsonObject(with: data) {
-        case .success(let json):
-          switch JSONParser.pizzaList(from: json) {
-          case .success(let response):
-            completion(Result(value: response.list))
-          case .failure(let error):
-            completion(Result(error: .wrapped(error)))
-          }
-        case .failure(let error):
-          completion(Result(error: .wrapped(error)))
+      let transformedResult: Result<[Pizza], PizzaServiceError> = result
+        .mapError { PizzaServiceError.wrapped($0) }
+        .flatMap { data in
+          return JSONSerialization.yow_jsonObject(with: data)
+            .mapError { PizzaServiceError.wrapped($0) }
         }
-      case .failure(let error):
-        completion(Result(error: .wrapped(error)))
-      }
+        .flatMap { json in
+          return JSONParser.pizzaList(from: json)
+            .mapError { PizzaServiceError.wrapped($0) }
+        }
+        .map { $0.list }
+
+      completion(transformedResult)
     }.resume()
   }
 }
