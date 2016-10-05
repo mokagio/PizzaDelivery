@@ -42,7 +42,7 @@ class PizzaListViewController: UIViewController {
 
     UIApplication.shared.isNetworkActivityIndicatorVisible = true
 
-    pizzaService.loadPizzas { [weak self] list, error in
+    pizzaService.loadPizzas { [weak self] result in
       UIApplication.shared.isNetworkActivityIndicatorVisible = false
 
       DispatchQueue.main.async { [weak self] in
@@ -50,16 +50,14 @@ class PizzaListViewController: UIViewController {
 
         self.spinner.stopAnimating() // stop animating hides as well
 
-        switch (list, error) {
-        case (.some(let list), .none):
+        switch result {
+        case .success(let list):
           self.tableView.isHidden = false
           self.data = interpose(list, withElementsFrom: Ad.dummyAds(), count: 3)
           self.tableView.reloadData()
-        case (.none, .some(let error)):
+        case .failure(let error):
           self.errorView.isHidden = false
           self.errorMessageLabel.text = self.message(for: error)
-        case _:
-          fatalError("Pizza service returned neither pizza list nor error")
         }
       }
     }
