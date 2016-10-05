@@ -13,18 +13,18 @@ struct JSONParser {
     }
   }
 
-  static func pizzaList(from json: JSON) -> Result<PizzaListResponse, JSONParserError> {
+  static func pizzaList(from json: JSON) -> Result<PizzaListResponse, PizzaDeliveryError> {
     switch json {
     case .object(let jsonObject):
         return JSONParser.pizzaList(fromJSON: jsonObject)
     case _:
-      return Result(error: JSONParserError.notJSONDictionary)
+      return Result(error: .jsonParsing(.notJSONDictionary))
     }
   }
 
-  private static func pizzaList(fromJSON json: JSONObject) -> Result<PizzaListResponse, JSONParserError> {
+  private static func pizzaList(fromJSON json: JSONObject) -> Result<PizzaListResponse, PizzaDeliveryError> {
     guard let list = json[Keys.PizzaList.List] as? JSONArray else {
-      return Result(error: JSONParserError.missingKey(Keys.PizzaList.List))
+      return Result(error: .jsonParsing(.missingKey(Keys.PizzaList.List)))
     }
 
     let accumulation: (pizzas: [Pizza], errors: [Error]) = list
@@ -37,26 +37,20 @@ struct JSONParser {
     }
 
     if accumulation.pizzas.count == 0 && accumulation.errors.count > 0 {
-      return Result(error: JSONParserError.arrayParsingFailed(accumulation.errors))
+      return Result(error: .jsonParsing(.arrayParsingFailed(accumulation.errors)))
     } else {
       return Result(value: PizzaListResponse(list: accumulation.pizzas))
     }
   }
 
-  static func pizza(fromJSON json: JSONObject) -> Result<Pizza, JSONParserError> {
+  static func pizza(fromJSON json: JSONObject) -> Result<Pizza, PizzaDeliveryError> {
     guard let name = json[Keys.Pizza.Name] as? String else {
-      return Result(error: .missingKey(Keys.Pizza.Name))
+      return Result(error: .jsonParsing(.missingKey(Keys.Pizza.Name)))
     }
     guard let price = json[Keys.Pizza.Price] as? Double else {
-      return Result(error: .missingKey(Keys.Pizza.Price))
+      return Result(error: .jsonParsing(.missingKey(Keys.Pizza.Price)))
     }
 
     return Result(value: Pizza(price: price, name: name))
   }
-}
-
-enum JSONParserError: Error {
-  case missingKey(String)
-  case arrayParsingFailed([Error])
-  case notJSONDictionary
 }

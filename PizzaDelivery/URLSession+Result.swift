@@ -4,7 +4,7 @@ typealias HTTPStatusCode = Int
 
 extension URLSession {
 
-  func yow_dataTask(with url: URL, completion: @escaping (Result<(Data, URLResponse), NetworkingError>) -> ()) -> URLSessionDataTask {
+  func yow_dataTask(with url: URL, completion: @escaping (Result<(Data, URLResponse), PizzaDeliveryError>) -> ()) -> URLSessionDataTask {
     return dataTask(with: url) { data, response, error in
       switch (data, response, error) {
       case (.some(let data), .some(let response), .none):
@@ -12,17 +12,17 @@ extension URLSession {
       case (.none, .none, .some(let error)):
         completion(Result(error: .wrapped(error)))
       case (_, _, _):
-        completion(Result(error: .inconsistentResponse))
+        completion(Result(error: .networking(.inconsistentResponse)))
       }
     }
   }
 
-  func yow_dataTask(with url: URL, completion: @escaping (Result<(Data, HTTPStatusCode), NetworkingError>) -> ()) -> URLSessionDataTask {
-    return yow_dataTask(with: url) { (result: Result<(Data, URLResponse), NetworkingError>) -> () in
+  func yow_dataTask(with url: URL, completion: @escaping (Result<(Data, HTTPStatusCode), PizzaDeliveryError>) -> ()) -> URLSessionDataTask {
+    return yow_dataTask(with: url) { (result: Result<(Data, URLResponse), PizzaDeliveryError>) -> () in
       completion(
         result.flatMap { data, response in
           guard let httpResponse = response as? HTTPURLResponse else {
-            return Result(error: .notHTTPResponse)
+            return Result(error: .networking(.notHTTPResponse))
           }
 
           return Result(value: (data, httpResponse.statusCode))
@@ -31,12 +31,12 @@ extension URLSession {
     }
   }
 
-  func yow_dataTask(with url: URL, completion: @escaping (Result<Data, NetworkingError>) -> ()) -> URLSessionDataTask {
-    return yow_dataTask(with: url) { (result: Result<(Data, HTTPStatusCode), NetworkingError>) -> () in
+  func yow_dataTask(with url: URL, completion: @escaping (Result<Data, PizzaDeliveryError>) -> ()) -> URLSessionDataTask {
+    return yow_dataTask(with: url) { (result: Result<(Data, HTTPStatusCode), PizzaDeliveryError>) -> () in
       completion(
         result.flatMap { data, statusCode in
           if statusCode >= 400 {
-            return Result(error: .httpError(statusCode))
+            return Result(error: .networking(.httpError(statusCode)))
           } else {
             return Result(value: data)
           }
@@ -44,11 +44,4 @@ extension URLSession {
       )
     }
   }
-}
-
-enum NetworkingError: Error {
-  case notHTTPResponse
-  case httpError(HTTPStatusCode)
-  case wrapped(Error)
-  case inconsistentResponse
 }

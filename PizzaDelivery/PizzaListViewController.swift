@@ -76,10 +76,17 @@ class PizzaListViewController: UIViewController {
 
   private func message(for error: Error) -> String {
     switch error {
-    case is JSONParserError:
-      return "The pizza server returned gibberish"
-    case is PizzaServiceError:
-      return "The pizza server behaved unexpectedly"
+    case let pizzaError as PizzaDeliveryError:
+      switch pizzaError {
+      case .jsonParsing:
+        return "The pizza server returned gibberish"
+      case .pizzaService:
+        return "The pizza server behaved unexpectedly"
+      case .wrapped(let error):
+        return message(for: error)
+      case _:
+        return "Something failed, but we're too lazy to tell you what"
+      }
     case _:
       return error.localizedDescription
     }

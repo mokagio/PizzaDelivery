@@ -10,27 +10,14 @@ class PizzaService {
     self.baseURL = baseURL
   }
 
-  func loadPizzas(completion: @escaping (Result<[Pizza], PizzaServiceError>) -> ()) {
-    session.yow_dataTask(with: baseURL.appendingPathComponent("pizzas")) { (result: Result<Data, NetworkingError>) in
-      let transformedResult: Result<[Pizza], PizzaServiceError> = result
-        .mapError { PizzaServiceError.wrapped($0) }
-        .flatMap { data in
-          return JSONSerialization.yow_jsonObject(with: data)
-            .mapError { PizzaServiceError.wrapped($0) }
-        }
-        .flatMap { json in
-          return JSONParser.pizzaList(from: json)
-            .mapError { PizzaServiceError.wrapped($0) }
-        }
+  func loadPizzas(completion: @escaping (Result<[Pizza], PizzaDeliveryError>) -> ()) {
+    session.yow_dataTask(with: baseURL.appendingPathComponent("pizzas")) { (result: Result<Data, PizzaDeliveryError>) in
+      let transformedResult: Result<[Pizza], PizzaDeliveryError> = result
+        .flatMap(JSONSerialization.yow_jsonObject)
+        .flatMap(JSONParser.pizzaList)
         .map { $0.list }
 
       completion(transformedResult)
     }.resume()
   }
-}
-
-enum PizzaServiceError: Error {
-  case inconsistentResponse
-  case missingContent
-  case wrapped(Error)
 }
